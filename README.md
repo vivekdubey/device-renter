@@ -24,7 +24,9 @@ CREATE TABLE devices (
 );
 
 CREATE UNIQUE INDEX user_email ON users(email);
+CREATE UNIQUE INDEX device_nickname ON devices(nickName);
 
+ALTER TABLE devices ALTER COLUMN status SET DEFAULT 'available'
 INSERT INTO users (name, email, role, password)
   VALUES ('Tony Stark', 'iron.man@email.com', 'admin', 'p@ssw0rd');
 INSERT INTO devices (nickName, type, os, version)
