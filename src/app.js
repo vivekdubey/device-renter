@@ -12,7 +12,7 @@ app.use(require('express-session')({
   cookie: { maxAge: cookieMaxAge }
 }));
 
-require('./passport/passport')(app);
+require('./passport')(app);
 
 const authRouter = require('./routes/auth');
 app.use('/auth', authRouter);

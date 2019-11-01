@@ -1,20 +1,22 @@
-var express = require('express');
-var authRouter = express.Router();
+const express = require('express');
+const authRouter = express.Router();
 const passport = require('passport');
+
+const getUserData = (req) => {
+  const token = Object.keys(req.sessionStore.sessions)[0];
+  return JSON.parse(req.sessionStore.sessions[token]).passport.user;
+}
 
 authRouter.get('/', passport.authenticate('github'));
 
 authRouter.get('/success',  (req, res) => {
-  console.log(req);
-  res.status(200).json({message: 'success'});
+  res.status(200).json(getUserData(req));
 });
 
-
 authRouter.get('/callback',
-  function(req, res, next) {
+  (req, res, next) => {
     passport.authenticate('github', { failureRedirect: '/devices' })(req, res, next);
-  },
-  function(req, res) {
+  },(req, res) => {
     res.redirect('/auth/success');
   });
 
