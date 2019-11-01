@@ -5,10 +5,12 @@ CREATE DATABASE device_renter;
 
 CREATE TABLE users (
   ID SERIAL PRIMARY KEY,
-  name VARCHAR(30),
+  username VARCHAR(30),
   email VARCHAR(30),
-  role VARCHAR(30),
-  password VARCHAR(30)
+  display_name VARCHAR(30),
+  CONSTRAINT username_unique UNIQUE (username),
+  CONSTRAINT email_unique UNIQUE (email),
+  CONSTRAINT display_name_unique UNIQUE (display_name)
 );
 
 CREATE TABLE devices (

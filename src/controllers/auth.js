@@ -1,12 +1,13 @@
 const message = require('../response-messages');
-var passport = require('passport');
+const passport = require('passport');
 
-const authenticate =  ( request, response ) => {
+const authenticate =   ( request, response ) => {
   try {
-    passport.authenticate('github');
-    response.status(200).json({message: 'Successful'});
+    console.log("in authenticate");
   } catch (err) {
     console.log(err.message);
     response.status(500).json(message.status500);
   }
 }
+
+module.exports = { authenticate };
