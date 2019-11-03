@@ -14,7 +14,8 @@ const getAvailable = async ( request, response ) => {
 const list = async (request, response) => {
   try {
     let res = await devices.list();
-    response.status(200).json(res)
+    response.render('devices', { devices: res });
+    // response.status(200).json(res)
   } catch (err) {
     console.log(err.message);
     response.status(500).json(message.status500);
