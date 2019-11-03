@@ -1,10 +1,11 @@
 const express = require('express');
 const userRouter = express.Router();
 const users = require('../controllers/users');
+const {ensureLoggedIn } = require('connect-ensure-login')
+const { isAuthorized } = require('../middleware/authorized');
 
 userRouter.get('/', users.getUsers);
-userRouter.post('/update-password', users.updatePassword);
-userRouter.post('/delete-user', users.deleteUser);
-userRouter.post('/create', users.createUser);
+userRouter.post('/delete-user', ensureLoggedIn('/auth'), isAuthorized, users.deleteUser);
+userRouter.post('/add-user', ensureLoggedIn('/auth'), isAuthorized, users.createUser);
 
 module.exports = userRouter;

@@ -10,40 +10,31 @@ const getAll = async () => {
   }
 }
 
-const getById = async (id) => {
+const userExists = async (username) => {
   try {
-    const queryStr = 'SELECT * FROM users WHERE id = $1';
-    let res = await db.query(queryStr, [id]);
-    return res.rows;
+    const queryStr = 'SELECT * FROM users WHERE username = $1';
+    let res = await db.query(queryStr, [username]);
+    return (res.rows).length == 1;
   } catch (err) {
     throw new Error(err.message);
   }
-
 }
 
-const createUser = async (name, email, role, password) => {
+const addUser = async (username, display_name, email) => {
   try {
-    const queryStr = 'INSERT INTO users (name, email, role, password) VALUES ($1, $2, $3, $4)';
-    let res = await db.query(queryStr, [name, email, role, password]);
+    const queryStr = 'INSERT INTO users (username, display_name, name) VALUES ($1, $2, $3)';
+    let res = await db.query(queryStr, [username, display_name, email]);
     return res.insertId;
   } catch(err) {
     throw new Error(err.message);
   }
 }
 
-const updatePassword = async ( { email, password } ) => {
-  try {
-    const queryStr = 'UPDATE users SET password = $1 WHERE email = $2';
-    return await db.query(queryStr, [password, email]);
-  } catch (err) {
-    throw new Error(err.message);
-  }
-}
 
-const deleteUser = async (email) => {
+const deleteUser = async (username) => {
   try {
-    const queryStr = 'DELETE FROM users WHERE email = $1';
-    return await db.query(queryStr, [email]);
+    const queryStr = 'DELETE FROM users WHERE username = $1';
+    return await db.query(queryStr, [username]);
   } catch (err) {
     throw new Error(err.message);
   }
@@ -51,8 +42,7 @@ const deleteUser = async (email) => {
 
 module.exports = {
   getAll,
-  getById,
-  createUser,
-  updatePassword,
-  deleteUser
+  addUser,
+  deleteUser,
+  userExists
 }
