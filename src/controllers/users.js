@@ -4,7 +4,8 @@ const message = require('../response-messages');
 const getUsers = async ( request, response ) => {
   try {
     let res = await users.getAll();
-    response.status(200).json(res);
+    response.render('users', { users: res });
+    // response.status(200).json(res);
   } catch (err) {
     console.log(err.message);
     response.status(500).json(message.status500);

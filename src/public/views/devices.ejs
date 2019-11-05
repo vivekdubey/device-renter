@@ -1,1 +1,16 @@
-Devices: <%= JSON.stringify(devices) %>
+<a href="/">Home</a></li>
+<table table border="1">
+   <tr>
+      <th>Nickname</th><th>Type</th><th>OS</th><th>Version</th><th>Status</th>
+   </tr>
+
+   <% for (var i = 0; i < devices.length;  i++) { %>
+    <tr>
+      <td><%= devices[i].nickname %></td>
+      <td><%= devices[i].type %></td>
+      <td><%= devices[i].os %></td>
+      <td><%= devices[i].version %></td>
+      <td><%= devices[i].status %></td>
+    </tr>
+   <% } %>
+</table>
