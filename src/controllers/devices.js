@@ -11,6 +11,10 @@ const getAvailable = async ( request, response ) => {
   }
 }
 
+const getAddForm = (request, response) => {
+  response.render('addDevice', {});
+}
+
 const list = async (request, response) => {
   try {
     let res = await devices.list();
@@ -35,12 +39,13 @@ const borrow = async (request, response) => {
 const addDevice = async (request, response) => {
   try {
     const res = await devices.addDevice(request.body);
-    response.status(200).json({message: res})
+    response.render('deviceAdded', {payload: request.body});
   } catch (err) {
     console.log(err.message);
     response.status(500).json(message.status500);
   }
 }
+
 
 const returnDevice = async (request, response) => {
   try {
@@ -52,4 +57,4 @@ const returnDevice = async (request, response) => {
   }
 }
 
-module.exports = { list, getAvailable, borrow, returnDevice, addDevice }
+module.exports = { list, getAvailable, borrow, returnDevice, addDevice, getAddForm}

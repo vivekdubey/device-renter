@@ -20,9 +20,10 @@ const userExists = async (username) => {
   }
 }
 
-const addUser = async (username, display_name, email) => {
+const addUser = async (payload) => {
   try {
-    const queryStr = 'INSERT INTO users (username, display_name, name) VALUES ($1, $2, $3)';
+    const { username, email, display_name } = payload
+    const queryStr = 'INSERT INTO users (username, display_name, email) VALUES ($1, $2, $3)';
     let res = await db.query(queryStr, [username, display_name, email]);
     return res.insertId;
   } catch(err) {

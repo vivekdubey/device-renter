@@ -12,6 +12,10 @@ const getUsers = async ( request, response ) => {
   }
 }
 
+const getAddForm = (request, response) => {
+  response.render('addUser', {});
+}
+
 const getUserById = async ( request, response ) => {
   try {
     const id = parseInt(request.params.id)
@@ -23,11 +27,12 @@ const getUserById = async ( request, response ) => {
   }
 }
 
-const createUser = async ( request, response ) => {
+const addUser = async ( request, response ) => {
   try {
-    const { name, email, role, password } = request.body;
-    const res =  await users.createUser(name, email, role, password);
-    response.status(201).json(res);
+    const { username, email, display_name } = request.body;
+    console.log(request.body);
+    await users.addUser(request.body);
+    response.render('userAdded', { username, email, display_name });
   } catch (err) {
     console.log(err.message);
     response.status(500).json(message.status500);
@@ -59,7 +64,8 @@ const deleteUser = async ( request, response ) => {
 module.exports = {
   getUsers,
   getUserById,
-  createUser,
+  addUser,
   updatePassword,
-  deleteUser
+  deleteUser,
+  getAddForm
 }

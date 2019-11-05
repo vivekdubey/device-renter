@@ -5,7 +5,8 @@ const {ensureLoggedIn } = require('connect-ensure-login')
 const { isAuthorized } = require('../middleware/authorized');
 
 userRouter.get('/', users.getUsers);
-userRouter.post('/delete-user', ensureLoggedIn('/auth'), isAuthorized, users.deleteUser);
-userRouter.post('/add-user', ensureLoggedIn('/auth'), isAuthorized, users.createUser);
+userRouter.post('/delete', ensureLoggedIn('/auth'), isAuthorized, users.deleteUser);
+userRouter.post('/add', ensureLoggedIn('/auth'), isAuthorized, users.addUser);
+userRouter.get('/add', users.getAddForm);
 
 module.exports = userRouter;
