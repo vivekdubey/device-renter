@@ -5,7 +5,7 @@ const { port } = require('./config');
 app.set('views', __dirname + '/public/views');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
-app.use(express.static(__dirname + '/public/static'));
+app.use(express.static(__dirname + '/public'));
 
 app.use(require('cookie-parser')());
 app.use(require('body-parser').json());
