@@ -12,13 +12,14 @@ const getAvailable = async ( request, response ) => {
 }
 
 const getAddForm = (request, response) => {
-  response.render('addDevice', {});
+  response.render('addDevice', {page:'New Device Form', menuId:'add_device'});
 }
 
 const list = async (request, response) => {
   try {
     let res = await devices.list();
-    response.render('devices', { devices: res });
+    // response.render('devices', { devices: res });
+    response.render('devices', {page:'Device List', menuId:'device_list', devices: res});
     // response.status(200).json(res)
   } catch (err) {
     console.log(err.message);
@@ -39,7 +40,7 @@ const borrow = async (request, response) => {
 const addDevice = async (request, response) => {
   try {
     const res = await devices.addDevice(request.body);
-    response.render('deviceAdded', {payload: request.body});
+    response.render('deviceAdded', {payload: request.body, page:'Success Message!', menuId:'device_list'});
   } catch (err) {
     console.log(err.message);
     response.status(500).json(message.status500);

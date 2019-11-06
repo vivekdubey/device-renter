@@ -4,7 +4,8 @@ const message = require('../response-messages');
 const getUsers = async ( request, response ) => {
   try {
     let res = await users.getAll();
-    response.render('users', { users: res });
+    // response.render('users', { users: res });
+    response.render('users', {page:'Librarian List', menuId:'librarians', users: res});
     // response.status(200).json(res);
   } catch (err) {
     console.log(err.message);
@@ -13,7 +14,8 @@ const getUsers = async ( request, response ) => {
 }
 
 const getAddForm = (request, response) => {
-  response.render('addUser', {});
+  // response.render('addUser', {});
+  response.render('addUser', {page:'New Librarian Form', menuId:'add_librarian'});
 }
 
 const getUserById = async ( request, response ) => {
@@ -32,7 +34,7 @@ const addUser = async ( request, response ) => {
     const { username, email, display_name } = request.body;
     console.log(request.body);
     await users.addUser(request.body);
-    response.render('userAdded', { username, email, display_name });
+    response.render('userAdded', {page:'Success Message!', menuId:'librarians', user: request.body});
   } catch (err) {
     console.log(err.message);
     response.status(500).json(message.status500);

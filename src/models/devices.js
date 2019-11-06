@@ -12,11 +12,11 @@ const list = async () => {
   }
 }
 
-const addDevice = async ({nickName, type, os, version }) => {
+const addDevice = async ({nickname, type, os, version }) => {
   try {
     const queryStr = `INSERT INTO ${devicesTable} (nickName, type, os, version) VALUES ($1, $2, $3, $4)`
-    await db.query(queryStr, [nickName, type, os, version]);
-    return `Device added successfully. Nickname: ${nickName}, OS: ${os}, Type: ${type}, Version: ${version}`;
+    await db.query(queryStr, [nickname, type, os, version]);
+    return `Device added successfully. Nickname: ${nickname}, OS: ${os}, Type: ${type}, Version: ${version}`;
   } catch (err) {
     throw new Error (err.message)
   }

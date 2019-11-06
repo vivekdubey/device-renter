@@ -1,10 +1,33 @@
-<form action="/users/add" method="post">
-    <label for="New Device Admin">New Device Admin Details </label></br>
-    <label for="githubuserid">Github User Id</label>
-    <input id="githubuserid" type="text" name="username"</br>
-    <label for="username">User Name</label>
-    <input id="username" type="text" name="display_name"></br>
-    <label for="email_name">Email Id</label>
-    <input id="email_name" type="text" name="email"></br>
-    <input type="submit" value="Add">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <% include partials/head %>
+</head>
+<body>
+<% include partials/menu %>
+<div class="container-fluid bg-3 text-center">
+  <h3><%= page %></h3><br>
+  <div class="row">
+    <form action="/users/add" method="post">
+  <div class="form-group">
+    <label for="username">Github User Id</label>
+    <input type="text" class="form-control" id="githubuserid" aria-describedby="usernameHelp" name="username" placeholder="Enter github user ID">
+    <small id="usernameHelp" class="form-text text-muted">Enter github user ID for new device librarian.</small>
+  </div>
+  <div class="form-group">
+    <label for="display_name">Name of the librarian</label>
+    <input type="text" class="form-control" id="display_name" aria-describedby="display_nameHelp" name="display_name" placeholder="Enter name of the new user">
+    <small id="display_nameHelp" class="form-text text-muted">Enter name of the new user. e.g. FirstName LastName</small>
+  </div>
+  <div class="form-group">
+    <label for="email">Name of the librarian</label>
+    <input type="email" class="form-control" id="display_name" aria-describedby="emailHelp" name="email" placeholder="Enter email ID of the new user">
+    <small id="emailHelp" class="form-text text-muted">Email of the new user. e.g. FirstName LastName</small>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+  </div>
+</div>
+</body>
+<% include partials/script %>
+</html>

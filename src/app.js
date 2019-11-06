@@ -38,6 +38,9 @@ app.use('/devices', devicesRouter);
 const homeRouter = require('./routes/home');
 app.use('/', homeRouter);
 
+// router.get('/', function(req, res, next) {
+//   res.render('index', {page:'Home', menuId:'home'});
+// });
 
 console.log(`port: ${port}`)
 app.listen(port);

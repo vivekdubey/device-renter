@@ -1,7 +1,27 @@
-<a href="/">Home</a></li>
-<p>
-  <b> Device Admin Added successfully! </b>
-  <b>UserName :</b> <%= username%>
-  <b>Display Name :</b> <%= display_name%>
-  <b>Email :</b> <%= email%>
-</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <% include partials/head %>
+</head>
+<body>
+<% include partials/menu %>
+<div class="container-fluid bg-3 text-center">
+  <h3><%= page %></h3><br>
+  <div class="row">
+    <div class="row">
+
+            <div class="alert-message alert-message-success">
+              <% const {username, display_name, email} = user %>
+                <p>
+                    <strong>Username :</strong> <%= username%>
+                    <strong>Display Name :</strong> <%= display_name%>
+                    <strong>Email</strong> <%= email%>
+                </p>
+            </div>
+
+    </div>
+  </div>
+</div>
+</body>
+<% include partials/script %>
+</html>

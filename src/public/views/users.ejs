@@ -1,14 +1,33 @@
-<a href="/">Home</a></li>
-<table table border="1">
-   <tr>
-      <th>Name</th><th>Email</th><th>Username</th>
-   </tr>
-
-   <% for (var i = 0; i < users.length;  i++) { %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <% include partials/head %>
+</head>
+<body>
+<% include partials/menu %>
+<div class="container-fluid bg-3 text-center">
+  <h3><%= page %></h3><br>
+  <div class="row">
+    <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Username</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (var i = 0; i < users.length;  i++) { %>
     <tr>
       <td><%= users[i].display_name %></td>
       <td><%= users[i].email %></td>
       <td><%= users[i].username %></td>
     </tr>
    <% } %>
+  </tbody>
 </table>
+  </div>
+</div>
+</body>
+<% include partials/script %>
+</html>
