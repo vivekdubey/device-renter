@@ -7,6 +7,7 @@ const { isAuthorized } = require('../middleware/authorized');
 deviceRouter.get('/', devices.list);
 deviceRouter.get('/get-available', devices.getAvailable);
 deviceRouter.get('/borrowed', devices.getBorrowed);
+deviceRouter.get('/borrow-history', devices.getBorrowHistory);
 deviceRouter.post('/borrow', ensureLoggedIn('/auth'), isAuthorized, devices.borrow);
 deviceRouter.get('/borrow', devices.getBorrowForm);
 deviceRouter.get('/return', devices.returnDeviceForm);

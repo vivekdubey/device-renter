@@ -11,6 +11,17 @@ const getAvailable = async ( request, response ) => {
   }
 }
 
+const getBorrowHistory = async ( request, response ) => {
+  try {
+    let res = await devices.getBorrowHistory();
+    response.render('borrowHistory', { page:'Device Borrow Latest History', menuId:'borrow_history', history: res});
+    // response.status(200).json(res)
+  } catch (err) {
+    console.log(err.message);
+    response.status(500).json(message.status500);
+  }
+}
+
 const getBorrowed = async ( request, response ) => {
   try {
     let res = await devices.getBorrowed();
@@ -53,7 +64,6 @@ const borrow = async (request, response) => {
     const { nickName, borrowerEmail } = request.body;
     const authorizer = request.user.username;
     const res = await devices.borrow(nickName, authorizer, borrowerEmail);
-    console.log(res);
     response.render('deviceBorrowed', { page:'Device Borrowed Message!', menuId:'device_list', nickName: nickName, authorizer: authorizer, borrowerEmail: borrowerEmail});
     // response.status(200).json({message: res})
   } catch (err) {
@@ -83,9 +93,9 @@ const returnDeviceForm = async (request, response) => {
 }
 const returnDevice = async (request, response) => {
   try {
-    const res = await devices.returnDevice(request.body);
     const {nickName} = request.body;
     const authorizer = request.user.username;
+    const res = await devices.returnDevice(nickName, authorizer);
     response.render('deviceReturned', { page:'Device Returned Message!', menuId:'device_list', nickName: nickName, authorizer: authorizer});
   } catch (err) {
     console.log(err.message);
@@ -93,4 +103,15 @@ const returnDevice = async (request, response) => {
   }
 }
 
-module.exports = { list, getAvailable, borrow, returnDevice, addDevice, getAddForm, getBorrowForm, getBorrowed, returnDeviceForm}
+module.exports = {
+  list,
+  getAvailable,
+  borrow,
+  returnDevice,
+  addDevice,
+  getAddForm,
+  getBorrowForm,
+  getBorrowed,
+  returnDeviceForm,
+  getBorrowHistory
+}
