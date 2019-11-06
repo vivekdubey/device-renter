@@ -44,7 +44,7 @@ const utcTimestamp = () => {
   return new Date(new Date().toUTCString());
 }
 
-const borrow = async ({nickName, authorizer, borrowerEmail}) => {
+const borrow = async (nickName, authorizer, borrowerEmail) => {
   try {
     if( await isUnAvailable()) {
       return deviceUnavailableMessage;
@@ -67,10 +67,21 @@ const getAvailable = async () => {
   }
 }
 
+const getBorrowed = async () => {
+  try {
+    const queryStr = `SELECT * FROM ${devicesTable} where status = $1`;
+    let res = await db.query(queryStr, [unAvailable]);
+    return res.rows;
+  } catch (err) {
+    throw new Error (err.message)
+  }
+}
+
 module.exports = {
   list,
   getAvailable,
   borrow,
   returnDevice,
-  addDevice
+  addDevice,
+  getBorrowed
 }

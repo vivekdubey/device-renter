@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <% include partials/head %>
+</head>
+<body>
+<% include partials/menu %>
+<div class="container-fluid bg-3 text-center">
+  <h3><%= page %></h3><br>
+  <div class="row">
+    <div class="row">
+
+            <div class="alert-message alert-message-success">
+                <p>
+                    <strong>Device Nickname :</strong> <%= nickName%>
+                    <strong>Authorizer Github username :</strong> <%= authorizer %>
+                </p>
+            </div>
+
+    </div>
+  </div>
+</div>
+</body>
+<% include partials/script %>
+</html>
