@@ -8,6 +8,16 @@ const list = async () => {
     let res = await db.query(queryStr);
     return res.rows;
   } catch (err) {
+    throw new Error (err.message);
+  }
+}
+
+const getBorrower = async (nickName) => {
+  try {
+    const queryStr = `SELECT borrower_email FROM ${devicesTable} where nickName = $1`;
+    let res = await db.query(queryStr, [nickName]);
+    return (res.rows)[0].borrower_email;
+  }catch (err) {
     throw new Error (err.message)
   }
 }
@@ -31,10 +41,11 @@ const isUnAvailable = async () => {
     throw new Error (err.message)
   }
 }
-const returnDevice = async ({nickName}) => {
+const returnDevice = async (nickName, returnAuthoriser) => {
   try {
-    const queryStr = `UPDATE ${devicesTable} SET status = $1 where nickname = $2`;
-    await db.query(queryStr, [available, nickName]);
+    const borrowerEmail = await getBorrower(nickName);
+    const queryStr = `UPDATE ${devicesTable} SET status = $1, return_authoriser = $2, last_borrower_email = $3, return_date = $4  where nickname = $5`;
+    await db.query(queryStr, [available, returnAuthoriser, borrowerEmail, utcTimestamp(), nickName]);
     return `Device: ${nickName} returned.`;
   } catch (err) {
     throw new Error (err.message)
@@ -53,7 +64,17 @@ const borrow = async (nickName, authorizer, borrowerEmail) => {
     await db.query(queryStr, [authorizer, borrowerEmail, unAvailable, utcTimestamp(), nickName]);
     return `Device: ${nickName} borrowed to : ${borrowerEmail} by ${authorizer}`;
   } catch (err) {
-    throw new Error (err.message)
+    throw new Error (err.message);
+  }
+}
+
+const getBorrowHistory = async () => {
+  try {
+    const queryStr = `SELECT nickName, return_authoriser, last_borrower_email, return_date, status FROM ${devicesTable}`;
+    let res = await db.query(queryStr);
+    return res.rows;
+  } catch(err) {
+    throw new Error (err.message);
   }
 }
 
@@ -83,5 +104,6 @@ module.exports = {
   borrow,
   returnDevice,
   addDevice,
-  getBorrowed
+  getBorrowed,
+  getBorrowHistory
 }

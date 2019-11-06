@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <% include partials/head %>
+</head>
+<body>
+<% include partials/menu %>
+<div class="container-fluid bg-3 text-center">
+  <h3><%= page %></h3><br>
+  <div class="row">
+    <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Nickname</th>
+      <th scope="col">Return Authoriser</th>
+      <th scope="col">Last Borrower's Email</th>
+      <th scope="col">Return Date</th>
+      <th scope="col">Current Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (var i = 0; i < history.length;  i++) { %>
+    <tr>
+      <td><%= history[i].nickname %></td>
+      <td><%= history[i].return_authoriser %></td>
+      <td><%= history[i].last_borrower_email %></td>
+      <td><%= history[i].return_date %></td>
+      <td><%= history[i].status %></td>
+    </tr>
+   <% } %>
+  </tbody>
+</table>
+  </div>
+</div>
+</body>
+<% include partials/script %>
+</html>
