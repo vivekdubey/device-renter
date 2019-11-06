@@ -18,6 +18,16 @@ const getAddForm = (request, response) => {
   response.render('addUser', {page:'New Librarian Form', menuId:'add_librarian'});
 }
 
+const removeUserForm = async (request, response) => {
+  try {
+    const res = await await users.getAll();;
+    response.render('removeUser', { page:'Remove User Form', menuId:'remove_user', users: res});
+  } catch (err) {
+    console.log(err.message);
+    response.status(500).json(message.status500);
+  }
+}
+
 const getUserById = async ( request, response ) => {
   try {
     const id = parseInt(request.params.id)
@@ -52,11 +62,12 @@ const updatePassword = async ( request, response ) => {
   }
 }
 
-const deleteUser = async ( request, response ) => {
+const removeUser = async ( request, response ) => {
   try {
-    const { email } = request.body;
-    await users.deleteUser(email);
-    response.status(200).send(`User deleted with email: ${email}`)
+    const { username } = request.body;
+    const authoriser = request.user.username;
+    await users.removeUser(username);
+    response.render('userRemoved', {page:'User Removal Message!', menuId:'remove_user', username: username, authoriser: authoriser});
   } catch (err) {
     console.log(err.message);
     response.status(500).json(message.status500);
@@ -68,6 +79,7 @@ module.exports = {
   getUserById,
   addUser,
   updatePassword,
-  deleteUser,
-  getAddForm
+  removeUser,
+  getAddForm,
+  removeUserForm
 }

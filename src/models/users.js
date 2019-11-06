@@ -32,7 +32,7 @@ const addUser = async (payload) => {
 }
 
 
-const deleteUser = async (username) => {
+const removeUser = async (username) => {
   try {
     const queryStr = 'DELETE FROM users WHERE username = $1';
     return await db.query(queryStr, [username]);
@@ -44,6 +44,6 @@ const deleteUser = async (username) => {
 module.exports = {
   getAll,
   addUser,
-  deleteUser,
+  removeUser,
   userExists
 }
