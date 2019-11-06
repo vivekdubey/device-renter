@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <% include partials/head %>
+</head>
+<body>
+<% include partials/menu %>
+<div class="container bg-3 text-center">
+  <h3><%= page %></h3><br>
+  <div class="row">
+    <div class="row">
+
+            <div class="alert-message alert-message-success">
+              <% const {nickname, type, os, version} = payload %>
+                <p>
+                    <strong> strongmessage</strong>
+                    <strong>Nickname :</strong> <%= nickname%>
+                    <strong>Device Type :</strong> <%= type%>
+                    <strong>OS :</strong> <%= os%>
+                    <strong>Version :</strong> <%= version%>
+                </p>
+            </div>
+
+    </div>
+  </div>
+</div>
+</body>
+<% include partials/script %>
+</html>

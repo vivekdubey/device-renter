@@ -20,9 +20,10 @@ const userExists = async (username) => {
   }
 }
 
-const addUser = async (username, display_name, email) => {
+const addUser = async (payload) => {
   try {
-    const queryStr = 'INSERT INTO users (username, display_name, name) VALUES ($1, $2, $3)';
+    const { username, email, display_name } = payload
+    const queryStr = 'INSERT INTO users (username, display_name, email) VALUES ($1, $2, $3)';
     let res = await db.query(queryStr, [username, display_name, email]);
     return res.insertId;
   } catch(err) {
@@ -31,7 +32,7 @@ const addUser = async (username, display_name, email) => {
 }
 
 
-const deleteUser = async (username) => {
+const removeUser = async (username) => {
   try {
     const queryStr = 'DELETE FROM users WHERE username = $1';
     return await db.query(queryStr, [username]);
@@ -43,6 +44,6 @@ const deleteUser = async (username) => {
 module.exports = {
   getAll,
   addUser,
-  deleteUser,
+  removeUser,
   userExists
 }

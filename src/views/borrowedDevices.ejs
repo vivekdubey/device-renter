@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <% include partials/head %>
+</head>
+<body>
+<% include partials/menu %>
+<div class="container bg-3 text-center">
+  <h3><%= page %></h3><br>
+  <div class="row">
+    <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Nickname</th>
+      <th scope="col">Type</th>
+      <th scope="col">OS</th>
+      <th scope="col">Version</th>
+      <th scope="col">Authorizer</th>
+      <th scope="col">Borrower Email</th>
+      <th scope="col">Borrowed Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (var i = 0; i < devices.length;  i++) { %>
+    <tr>
+      <td><%= devices[i].nickname %></td>
+      <td><%= devices[i].type %></td>
+      <td><%= devices[i].os %></td>
+      <td><%= devices[i].version %></td>
+      <td><%= devices[i].authorizer %></td>
+      <td><%= devices[i].borrower_email %></td>
+      <td><%= devices[i].borrowed_date %></td>
+    </tr>
+   <% } %>
+  </tbody>
+</table>
+  </div>
+</div>
+</body>
+<% include partials/script %>
+</html>

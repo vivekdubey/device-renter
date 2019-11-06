@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <% include partials/head %>
+</head>
+<body>
+<% include partials/menu %>
+<div class="container bg-3 text-center">
+  <h3><%= page %></h3><br>
+  <div class="row">
+    <form action="/devices/add" method="post">
+  <div class="form-group">
+    <label for="nickname">Device Nickname</label>
+    <input type="nickname" class="form-control" id="nickname" aria-describedby="nicknameHelp" name="nickname" placeholder="Enter Device Nickname">
+    <small id="nicknameHelp" class="form-text text-muted">Enter nickname of the new QA device. e.g. Jellybean</small>
+  </div>
+  <div class="form-group">
+    <label for="deviceType">Device Type</label>
+    <select class="form-control" name="type" id="deviceType">
+      <option>Mobile</option>
+      <option>Tablet</option>
+      <option>IPad</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="deviceOS">Device OS</label>
+    <select class="form-control" name="os" id="deviceType">
+      <option>Android</option>
+      <option>IOS</option>
+      <option>Windows</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="version">Device OS Version</label>
+    <input type="version" class="form-control" id="version" aria-describedby="versionHelp" name="version" placeholder="Enter Device OS Version">
+    <small id="nicknameHelp" class="form-text text-muted">Enter OS version of the new device e.g. 9.0 </small>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+  </div>
+</div>
+</body>
+<% include partials/script %>
+</html>

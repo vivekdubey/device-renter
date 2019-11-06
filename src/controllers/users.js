@@ -4,7 +4,24 @@ const message = require('../response-messages');
 const getUsers = async ( request, response ) => {
   try {
     let res = await users.getAll();
-    response.status(200).json(res);
+    // response.render('users', { users: res });
+    response.render('users', {page:'Librarian List', menuId:'librarians', users: res});
+    // response.status(200).json(res);
+  } catch (err) {
+    console.log(err.message);
+    response.status(500).json(message.status500);
+  }
+}
+
+const getAddForm = (request, response) => {
+  // response.render('addUser', {});
+  response.render('addUser', {page:'New Librarian Form', menuId:'add_librarian'});
+}
+
+const removeUserForm = async (request, response) => {
+  try {
+    const res = await await users.getAll();;
+    response.render('removeUser', { page:'Remove User Form', menuId:'remove_user', users: res});
   } catch (err) {
     console.log(err.message);
     response.status(500).json(message.status500);
@@ -22,11 +39,12 @@ const getUserById = async ( request, response ) => {
   }
 }
 
-const createUser = async ( request, response ) => {
+const addUser = async ( request, response ) => {
   try {
-    const { name, email, role, password } = request.body;
-    const res =  await users.createUser(name, email, role, password);
-    response.status(201).json(res);
+    const { username, email, display_name } = request.body;
+    console.log(request.body);
+    await users.addUser(request.body);
+    response.render('userAdded', {page:'Success Message!', menuId:'librarians', user: request.body});
   } catch (err) {
     console.log(err.message);
     response.status(500).json(message.status500);
@@ -44,11 +62,12 @@ const updatePassword = async ( request, response ) => {
   }
 }
 
-const deleteUser = async ( request, response ) => {
+const removeUser = async ( request, response ) => {
   try {
-    const { email } = request.body;
-    await users.deleteUser(email);
-    response.status(200).send(`User deleted with email: ${email}`)
+    const { username } = request.body;
+    const authoriser = request.user.username;
+    await users.removeUser(username);
+    response.render('userRemoved', {page:'User Removal Message!', menuId:'remove_user', username: username, authoriser: authoriser});
   } catch (err) {
     console.log(err.message);
     response.status(500).json(message.status500);
@@ -58,7 +77,9 @@ const deleteUser = async ( request, response ) => {
 module.exports = {
   getUsers,
   getUserById,
-  createUser,
+  addUser,
   updatePassword,
-  deleteUser
+  removeUser,
+  getAddForm,
+  removeUserForm
 }
