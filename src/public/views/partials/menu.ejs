@@ -1,26 +1,38 @@
-<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
+<nav class="navbar navbar-expand-lg">
+<div id="deviceSideBar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav('deviceSideBar')">×</a>
+  <li id="device_list"><a href="/devices">Devices</a></li>
+  <li id="borrowed_device_list"><a href="/devices/borrowed">Borrowed Devices</a></li>
+  <li id="add_device"><a href="/devices/add">Add Device</a></li>
+  <li id="borrow_device"><a href="/devices/borrow">Borrow Device</a></li>
+  <li id="return_device"><a href="/devices/return">Return Device</a></li>
+  <li id="borrow_history"><a href="/devices/borrow-history">Borrow History</a></li>
+</div>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li id="device_list"><a href="/devices">List Device</a></li>
-        <li id="borrowed_device_list"><a href="/devices/borrowed">List Borrowed Device</a></li>
-        <li id="add_device"><a href="/devices/add">Add Device</a></li>
-        <li id="borrow_device"><a href="/devices/borrow">Borrow Device</a></li>
-        <li id="return_device"><a href="/devices/return">Return Device</a></li>
-        <li id="borrow_history"><a href="/devices/borrow-history">Borrow History</a></li>
-        <li id="librarians"><a href="/users">Librarians</a></li>
-        <li id="add_librarian"><a href="/users/add">Add new librarian</a></li>
-        <li id="remove_librarian"><a href="/users/delete">Remove librarian</a></li>
-      </ul>
-    </div>
-  </div>
+<div id="userSideBar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav('userSideBar')">×</a>
+  <li id="librarians"><a href="/users">Librarians</a></li>
+  <li id="add_librarian"><a href="/users/add">Add new librarian</a></li>
+  <li id="remove_librarian"><a href="/users/delete">Remove librarian</a></li>
+</div>
+
+<div id="main">
+  <button class="openbtn" onclick="openNav('deviceSideBar')">Device</button>
+  <button class="openbtn" onclick="openNav('userSideBar')">Librarian</button>
+</div>
 </nav>
+
+<script>
+function openNav(id) {
+  document.getElementById(id).style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeNav(id) {
+  document.getElementById(id).style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+}
+</script>
+
+</body>
+</html>
